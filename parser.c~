@@ -1,0 +1,137 @@
+#include <stdio.h>
+#include "cradle.h"
+#include <string.h>
+#include "mexpr.h"
+
+FILE * inFile;
+FILE * outFile;
+const char TAB = 9;
+char lookahead;
+char * lahead;
+
+int main(int argc, char* argv[]){
+  if(argc < 2)
+    Error("Needs input and output files\n");
+  printf("file 1 = %s\n", argv[1]);
+  printf("file 2 = %s\n", argv[2]);
+  inFile = fopen(argv[1],"r");
+  //add handler for required files
+  outFile = fopen(argv[2],"w");
+  GetChar();
+  Expression();
+  fclose(inFile);
+  fclose(outFile);
+  return 0;
+}
+
+void GetChar(){
+  lookahead = getc(inFile);
+}
+
+void Error(char * s){
+  printf("\n Error:%s.\n", s);
+  abort();
+}
+
+
+void Expected(char * s){
+  char ermsg[128] = "expected ";
+  Error(strcat(ermsg,s));
+}
+
+void Match(char x){
+  if(lookahead==x)
+    GetChar();
+  else
+    Expected(&x);
+}
+char uncapitalize(char c){
+  char ch2 = c;
+  if(c >= 'A' && c <= 'Z')
+    ch2 -= ('A' -'a');
+  
+  return ch2;
+}
+
+int IsAlpha(char c){
+  c = uncapitalize(c);
+  return (('a' <= c)&&('z' >= c));
+}
+
+int IsNum(char c){
+  return (('0' <= c)&&('9' >= c));
+}
+
+char GetNumc(){
+  if(IsNum(lookahead)){
+    char l = lookahead;
+    GetChar();
+    return l;
+  }
+  else
+    Expected("number");
+}
+
+char * GetNum(){
+  char* number = (char *)calloc(5,sizeof(char));
+  if(!IsNum(lookahead)){
+    Expected("number");
+  }
+  else{
+    while(IsNum(lookahead)){
+      char* temp = (char*)calloc(1,sizeof(char));
+      sprintf(temp,"%c\0",lookahead);
+      strcat(number,temp);
+      GetChar();
+    }
+    printf("%s\n",number);
+    return number;
+  }
+}
+
+void Emit(char * s){
+  fprintf(outFile,"%c%s",TAB, s);
+}
+
+void EmitLn(char * s){
+  fprintf(outFile,"%c%s\n",TAB,s);
+}
+
+void Init(){
+  GetChar();
+}
+
+void reverse(char *string) 
+{
+   int length, c;
+   char *begin, *end, temp;
+ 
+   length = string_length(string);
+ 
+   begin = string;
+   end = string;
+ 
+   for ( c = 0 ; c < ( length - 1 ) ; c++ )
+      end++;
+ 
+   for ( c = 0 ; c < length/2 ; c++ ) 
+   {        
+      temp = *end;
+      *end = *begin;
+      *begin = temp;
+ 
+      begin++;
+      end--;
+   }
+}
+ 
+int string_length(char *pointer)
+{
+   int c = 0;
+ 
+   while( *(pointer+c) != '\0' )
+      c++;
+
+   return c;
+}
+
