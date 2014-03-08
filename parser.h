@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "token.h"
 
 char lookahead;
 int main(int argc, char* argv[]);

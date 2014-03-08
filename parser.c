@@ -9,7 +9,7 @@ char lookahead;
 char * lahead;
 int nParens = 0;
 
-int main(int argc, char* argv[]){
+/*int main(int argc, char* argv[]){
   if(argc < 2)
     Error("Needs input and output files\n");
   printf("file 1 = %s\n", argv[1]);
@@ -22,7 +22,7 @@ int main(int argc, char* argv[]){
   fclose(outFile);
   return 0;
 }
-
+*/
 void GetChar(){
   lookahead = getc(inFile);
 }

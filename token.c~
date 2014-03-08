@@ -1,0 +1,9 @@
+#pragma once
+#include <stdio.h>
+#include <string.h>
+#include "parser.h"
+#include "token.h"
+
+string getTag(token * t){
+  return t->tag;
+}

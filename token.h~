@@ -1,0 +1,7 @@
+#include <stdio.h>
+#include <string.h>
+
+struct lobject {
+  //token * ID;
+  lobject dependencies[];
+}
