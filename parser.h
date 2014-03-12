@@ -20,4 +20,4 @@ void Init();
 void Comment();
 
 //added on github
-lObj* parseRel();
+lobj* parseRel();
