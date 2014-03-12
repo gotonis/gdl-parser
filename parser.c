@@ -8,6 +8,7 @@ const char TAB = 9;
 char lookahead;
 char * lahead;
 int nParens = 0;
+const int maxRSize = 32;
 
 /*int main(int argc, char* argv[]){
   if(argc < 2)
@@ -92,4 +93,19 @@ void Init(){
 void Comment(){
   while(lookahead != '\n')
     GetChar();
+}
+
+lObj * parseRel(){
+	char* base = lahead;
+	int nparts = 0;
+	lObj* parts[] = (lObj**)calloc(maxRSize, sizeOf(lObj*));
+	while(lahead != ')'){
+		if(nparts > maxRSize)
+			Error("Relation bigger than max allowed size");
+		if(lahead == '('){
+			//parseRel();
+		}
+		else{
+			
+		}
 }
