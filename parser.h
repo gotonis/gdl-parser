@@ -3,6 +3,8 @@
 #include "token.h"
 
 char lookahead;
+char * lahead;
+const int maxRSize = 32;
 int main(int argc, char* argv[]);
 void GetChar();
 //void GetWord();
@@ -16,3 +18,6 @@ void Emit(char * s);
 void EmitLn(char * s);
 void Init();
 void Comment();
+
+//added on github
+lObj* parseRel();
